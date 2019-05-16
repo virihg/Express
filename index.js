@@ -9,15 +9,19 @@ app.all('/bye', function (req, res) {
   res.send('Bye bye :)');
 });
 app.use('/assets', express.static(path.join(__dirname, 'assets')))
-
-app.get('/algo1', function (req, res) {
-  res.status(202).send('algo 1');
+// middleware
+app.all ("*", (req, res, next) => {
+  console.log("el usuario le está dando click a", req.path);
+  next();
 });
-app.post('/algo2', function (req, res) {
-  res.status(200).send({algo2: "perrito"});
+app.get('/holi', (req, res) => {
+  res.send('Holiii');
 });
-app.patch('/algo3', function (req, res) {
-  res.status(401).send('esto se actualizo');
+app.post('/holi', (req, res) => {
+  res.send("Holiiii 2");
+});
+app.get('/bai',(req, res) => {
+  res.send('se acabo');
 });
 app.listen(3000, function () {
   console.log('My app listening on port 3000!');
